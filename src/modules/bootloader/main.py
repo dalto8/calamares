@@ -316,20 +316,6 @@ def install_systemd_boot(efi_directory):
 
     create_loader(loader_path, distribution_translated)
 
-    # clean up redundant kernel and initrd
-    try:
-        os.remove(os.path.join(install_path, "boot/vmlinuz-linux"))
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(os.path.join(install_path, "boot/initramfs-linux.img"))
-    except FileNotFoundError:
-        pass
-    try:
-        os.remove(os.path.join(install_path, "boot/initramfs-linux-fallback.img"))
-    except FileNotFoundError:
-        pass
-
 
 def install_grub(efi_directory, fw_type):
     """
