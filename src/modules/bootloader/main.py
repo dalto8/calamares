@@ -189,9 +189,9 @@ def create_systemd_boot_conf(install_path, efi_dir, uuid, entry, entry_name, ker
         additional_initrd_files = libcalamares.job.configuration["additionalInitrdFiles"]
         for initrd_file in additional_initrd_files.split(','):
             libcalamares.utils.debug("Attempting to handle initrd image " + initrd_file)
-            if os.path.isfile(os.path.join(install_path, initrd_file)):
+            if os.path.isfile(os.path.join(install_path, initrd_file.lstrip('/'))):
                 libcalamares.utils.debug("Found image " + initrd_file)
-                shutil.copyfile(os.path.join(install_path, initrd_file), os.path.join(files_dir, os.path.basename(initrd_file)))
+                shutil.copyfile(os.path.join(install_path, initrd_file.lstrip('/')), os.path.join(files_dir, os.path.basename(initrd_file)))
                 lines.append("initrd     {!s}\n".format(os.path.join("/", machine_id, kernel_version, os.path.basename(initrd_file))))
     except KeyError: # If the configuration option isn't set, we can just move on
         libcalamares.utils.debug("Failed to find key additionalInitrdFiles")
